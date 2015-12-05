@@ -1,0 +1,25 @@
+{
+  "name": "list_of_church",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "sallop <shiogai1987@yahoo.co.jp>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "gulp": "~3.9.0"
+  },
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "list_of_church",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

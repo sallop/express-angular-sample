@@ -1,0 +1,112 @@
+<!doctype html>
+<html ng-app="listApp">
+<head>
+	<title>Home Page</title>
+</head>
+<body ng-controller="listCtrl">
+	<h1>Blog!</h1>
+	<header>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/about">About Me</a></li>
+			<li><a href="/article">Some Article</a></li>
+		</ul>
+	</header>
+
+
+
+	<button ng-click="click(n)" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11] track by $index">
+		{{n}}班
+	</button>
+
+	<table border=1>
+		<tr>
+			<th>ID</th>
+			<th>班</th>
+			<th>氏名</th>
+			<th>洗礼名</th>
+			<th>生年月日</th>
+		</tr>
+		<tr ng-repeat="entry in entries track by $index">
+			<td>{{entry.id}}</td>
+			<td>{{entry.team}}</td>
+			<td>{{entry.fullname}}</td>
+			<td>{{entry.christian_name}}</td>
+			<td>{{entry.birthday}}</td>
+		</tr>
+	</table>
+
+	<form name="myForm" class="my-form" ng-controller="createCtrl">
+		userType: <input name="input" ng-model="userType" required>
+		<span class="error" ng-show="myForm.input.$error.required">
+			Required!
+		</span><br>
+		<code>userType = {{userType}}</code><br>
+		<code>myForm.input.$valid = {{myForm.input.$valid}}</code><br>
+		<code>myForm.input.$error = {{myForm.input.$error}}</code><br>
+		<code>myForm.$valid = {{myForm.$valid}}</code><br>
+		<code>myForm.$error.required = {{!myForm.$error.required}}</code><br>
+	</form>
+	<form ng-submit="submit()" ng-controller="submitCtrl">
+		<table>
+			<tr>
+				<td>id</td>
+				<td><input type="text" ng-model="id" name="id"/></td>
+			</tr>
+			<tr>
+				<td>team</td>
+				<td><input type="text" ng-model="team" name="team"/></td>
+			</tr>
+			<tr>
+				<td>fullname</td>
+				<td><input type="text" ng-model="fullname" name="fullname"/><td>
+			</tr>
+			<tr>
+				<td>christian_name</td>
+				<td><input type="text" ng-model="christian_name" name="christian_name"/></td>
+			</tr>
+			<tr>
+				<td>birthday</td>
+				<td><input type="text" ng-model="birthday" name="birthday"/></td>
+			</tr>
+			<tr>
+				<td>telephone</td>
+				<td><input type="text" ng-model="telephone" name="telephone"/></td>
+			</tr>
+			<tr>
+				<td>postcode</td>
+				<td><input type="text" ng-model="postcode" name="postcode"/></td>
+			</tr>
+			<tr>
+				<td>address</td>
+				<td><input type="text" ng-model="address" name="address"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" id="submit" value="submit"/></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<pre>list={{list}}</pre>
+		<pre>id={{id}}</pre>
+		<pre>team={{team}}</pre>
+		<pre>fullname={{fullname}}</pre>
+		<pre>christian_name={{christian_name}}</pre>
+		<pre>birthday={{birthday}}</pre>
+		<pre>telephone={{telephone}}</pre>
+		<pre>postcode={{postcode}}</pre>
+		<pre>address={{addres}}</pre>
+	</form>
+	<!--
+	{{#each entries}}
+		<p>
+		<a href="/article/{{id}}">{{title}}</a><br/>
+		Published: {{published}}
+		</p>
+	{{/each}}
+	-->
+	<p>Nothing here {{'yet' + '!'}}</p>
+	<script type="text/javascript" src="javascripts/angular.js"></script>
+	<script type="text/javascript" src="javascripts/controller.js"></script>
+</body>
+</html>

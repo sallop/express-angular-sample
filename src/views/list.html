@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Home Page</title>
+</head>
+
+<body>
+	<h1>list</h1>
+	
+		<table class="table" border="1">
+			<tr>
+				<th>班</th>
+				<th>氏名</th>
+				<th>洗礼名</th>
+				<th>生年月日</th>
+				<th>電話番号</th>
+				<th>郵便番号</th>
+				<th>住所</th>
+			</tr>
+			{{#each entries}}
+			<tr>
+				<td>{{team}}</td>
+				<td>{{fullname}}</td>
+				<td>{{christian_name}}</td>
+				<td>{{birthday}}</td>
+				<td>{{telephone}}</td>
+				<td>{{postcode}}</td>
+				<td>{{address}}</td>
+			</tr>
+			{{/each}}
+		<!--a href="/article/{{id}}">{{title}}</a><br/-->
+		<!-- Published: {{published}} -->
+		
+		</table>
+	<footer>
+		<a href="/">Home</a>
+		<a href="/about">About Me</a>
+		<a href="/article">Some Article</a>
+	</footer>
+</body>
+</html>
