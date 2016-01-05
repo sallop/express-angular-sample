@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.4.8",
+    "bootstrap": "^3.3.6"
+  },
   "devDependencies": {
     "gulp-jshint": "^2.0.0",
     "gulp-nodemon": "^2.0.4",
