@@ -230,6 +230,30 @@ app.get('/insert', function( req, res ){
 
 });
 
+app.get('/read/:id/:team/:fullname/:christian_name/:birthday/:telephone/:postcode/:address', function( req, res ){
+	// req.query.id
+	// req.query.fullname
+	// /read?id=404&fullname=tyler+durden
+	//var sql = "SELECT * FROM list WHERE;";
+	var sql = "?,?,?,?,?,?,?,?";
+	//var inserts = ['7', req.params.fullname, req.params.christian_name];
+	var params = [
+		req.params.id,
+		req.params.team,
+		req.params.fullname,
+		req.params.christian_name,
+		req.params.birthday,
+		req.params.telephone,
+		req.params.postcode,
+		req.params.address
+	];
+	sql = mysql.format( sql, params);
+
+	console.log( sql );
+});
+
+
+
 app.get('/api/users', function(req, res){
 	//var user_id = req.param('id');
 	//var token = req.param('token');

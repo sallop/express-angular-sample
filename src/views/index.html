@@ -97,6 +97,46 @@
 		<pre>postcode={{postcode}}</pre>
 		<pre>address={{addres}}</pre>
 	</form>
+	<form ng-submit="read()" ng-controller="readCtrl">
+		<table>
+			<tr>
+				<td>id</td><td><input type="text" ng-model="id" name="id"/></td>
+			</tr>
+			<tr>
+				<td>team</td>
+				<td><input type="text" ng-model="team" name="team"/></td>
+			</tr>
+			<tr>
+				<td>fullname</td>
+				<td><input type="text" ng-model="fullname" name="fullname"/><td>
+			</tr>
+			<tr>
+				<td>christian_name</td>
+				<td><input type="text" ng-model="christian_name" name="christian_name"/></td>
+			</tr>
+			<tr>
+				<td>birthday</td>
+				<td><input type="text" ng-model="birthday" name="birthday"/></td>
+			</tr>
+			<tr>
+				<td>telephone</td>
+				<td><input type="text" ng-model="telephone" name="telephone"/></td>
+			</tr>
+			<tr>
+				<td>postcode</td>
+				<td><input type="text" ng-model="postcode" name="postcode"/></td>
+			</tr>
+			<tr>
+				<td>address</td>
+				<td><input type="text" ng-model="address" name="address"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" id="submit" value="submit"/></td>
+				<td></td>
+			</tr>
+		</table>
+	</form>
+	
 	<!--
 	{{#each entries}}
 		<p>
