@@ -44,8 +44,13 @@ gulp.task('watch', function(){
 gulp.task('nodemon', function(){
   var started = false;
 
+  console.log("Current directory: " + process.cwd());
+  process.chdir('./src');
+  console.log("Current directory: " + process.cwd());
+
   return nodemon({
-    script: 'src/app.js',
+    //script: 'src/app.js',
+    script: 'app.js',
     ext: 'js html',
     env: {'NODE_ENV': 'development'}
   }).on('start', function(){
