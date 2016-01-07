@@ -9,23 +9,26 @@ var gulp = require('gulp'),
 var sources = {
   js: [
     'src/*.js',
-    'src/public/javascripts/*.js'
+    'src/public/javascripts/*.js',
   ],
   css: [
-    'src/public/css/*.css'
+    'src/public/css/*.css',
   ]
 };
 
 gulp.task('scripts', function(){
-  gulp.src("bower_components/angular/angular.js")
-    .pipe(gulp.dest("src/public/javascripts"));
-
+  gulp.src([
+    "node_modules/angular/angular.js",
+    "node_modules/bootstrap/dist/js/bootstrap.js"
+  ])
+  .pipe(gulp.dest("dist/javascripts"));
 });
 
 gulp.task('styles', function(){
-  gulp.src("bower_components/bootstrap/dist/css/bootstrap.css")
-    .pipe(gulp.dest("src/public/stylesheets"));
-
+  gulp.src([
+    "node_modules/bootstrap/dist/css/bootstrap.css"
+  ])
+  .pipe(gulp.dest("dist/stylesheets"));
 });
 
 gulp.task('jshint', function(){
@@ -45,11 +48,11 @@ gulp.task('nodemon', function(){
   var started = false;
 
   console.log("Current directory: " + process.cwd());
-  process.chdir('./src');
+  process.chdir('./dist');
   console.log("Current directory: " + process.cwd());
 
+
   return nodemon({
-    //script: 'src/app.js',
     script: 'app.js',
     ext: 'js html',
     env: {'NODE_ENV': 'development'}
