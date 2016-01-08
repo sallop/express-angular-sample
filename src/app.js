@@ -10,6 +10,7 @@ var mysql = require('mysql');
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('public'));
+app.use('/bower_components', express.static(__dirname + '/../bower_components'));
 //app.use( express.bodyParser() );
 //app.use( bodyParser() );
 //app.set('view options', { layout: false });
