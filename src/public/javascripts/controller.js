@@ -59,4 +59,25 @@ listApp.controller('listCtrl', function($scope, $http){
 			];
 		});
 	};
+}).controller('readCtrl', function($scope, $http){
+	$scope.read = function(){
+		var send_command = [
+			$scope.id,
+			$scope.team,
+			$scope.fullname,
+			$scope.christian_name,
+			$scope.birthday,
+			$scope.telephone, 
+			$scope.postcode,
+			$scope.address
+		].join('/');
+		
+		$http.get('/read/' + send_command).success(function(data){
+			$scope.list = data;
+			console.log(data);
+		})
+		.error(function(){
+			console.log("error occured");
+		});
+	};
 });

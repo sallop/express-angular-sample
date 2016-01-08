@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.4.8",
+    "bootstrap": "^3.3.6",
+    "gulp-concat": "^2.6.0"
+  },
   "devDependencies": {
     "gulp-jshint": "^2.0.0",
+    "gulp-nodemon": "^2.0.4",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.1.0"
   },
