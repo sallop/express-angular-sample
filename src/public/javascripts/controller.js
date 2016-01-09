@@ -1,9 +1,6 @@
 var listApp = angular.module('listApp', []);
 
 listApp.controller('listCtrl', function($scope, $http){
-	//$scope.count = 11;
-	//$http.get('/list/6').success(function(data){
-	//$http.get('/list/11').success(function(data){
 	$scope.click = function(n){
 		$scope.count = n;
 		console.log("pushed");
@@ -44,11 +41,7 @@ listApp.controller('listCtrl', function($scope, $http){
 			$scope.address
 		].join('/');
 
-
 		console.log("pushed: " + send_command);
-		//$http.get('/list/' + $scope.text).success(function(data){
-		//$http.get('/insert').success(function(data){
-		//$http.get('/insert/' + $scope.text).success(function(data){
 		$http.get('/insert/' + send_command).success(function(data){
 			$scope.list= data;
 			console.log(data);

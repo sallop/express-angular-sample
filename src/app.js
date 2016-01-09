@@ -3,7 +3,6 @@ var app = express();
 var bodyParser = require('body-parser');
 
 var hbs = require('hbs');
-var blogEngine = require(__dirname + '/blog');
 
 var mysql = require('mysql');
 
@@ -19,12 +18,6 @@ app.get('/', function(req, res){
 app.get('/about', function(req, res){
 	res.render('layout', { title: "About Me" });
 });
-
-app.get('/article/:id', function(req, res){
-	var entry = blogEngine.getBlogEntry(req.params.id);
-	res.render('article', { title: entry.title, blog:entry });
-});
-
 
 app.get('/list/:team', function(req, res){
 	console.log("/list/");

@@ -40,9 +40,6 @@ gulp.task('jshint', function(){
 });
 
 gulp.task('watch', function(){
-  //browserSync.init({
-  //  proxy: ""
-  //});
   gulp.watch(sources.js, ['jshint']);
 });
 
@@ -81,18 +78,6 @@ gulp.task('browser-sync', ['nodemon'], function(){
 });
 
 // create a default task and just log a message
-//gulp.task('default', ['scripts', 'styles', 'jshint', 'watch'], function(){
-gulp.task('default', ['scripts', 'styles', 'jshint', 'browser-sync'], function(){
-  return gutil.log('Gulp is running!');
-});
-
-
-
-
-
-
-// create a default task and just log a message
-//gulp.task('default', ['scripts', 'styles', 'jshint', 'watch'], function(){
 gulp.task('default', ['scripts', 'styles', 'jshint', 'browser-sync'], function(){
   return gutil.log('Gulp is running!');
 });
