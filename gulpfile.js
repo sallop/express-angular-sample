@@ -6,6 +6,8 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   browserSync = require('browser-sync').create();
 
+var BROWSER_SYNC_RELOAD_DELAY = 500;
+
 var sources = {
   js: [
     'src/*.js',
@@ -21,14 +23,14 @@ gulp.task('scripts', function(){
     "node_modules/angular/angular.js",
     "node_modules/bootstrap/dist/js/bootstrap.js"
   ])
-  .pipe(gulp.dest("dist/javascripts"));
+  .pipe(gulp.dest("src/javascripts"));
 });
 
 gulp.task('styles', function(){
   gulp.src([
     "node_modules/bootstrap/dist/css/bootstrap.css"
   ])
-  .pipe(gulp.dest("dist/stylesheets"));
+  .pipe(gulp.dest("src/stylesheets"));
 });
 
 gulp.task('jshint', function(){
@@ -46,35 +48,48 @@ gulp.task('watch', function(){
 
 gulp.task('nodemon', function(){
   var started = false;
-
-  console.log("Current directory: " + process.cwd());
-  process.chdir('./dist');
-  console.log("Current directory: " + process.cwd());
-
-
-  return nodemon({
-    script: 'app.js',
-    ext: 'js html',
-    env: {'NODE_ENV': 'development'}
+  return nodemon({ script: 'app.js'
+                , ext: 'js html'
+                , env: {'NODE_ENV': 'development'}
   }).on('start', function(){
-    // to avoid nodemon being started multiple times
-    if(!started){
-      cb();
-      started = true;
-    }
+      if(!started){
+          started = true;
+        console.log('nodemon start');
+      }
+  }).on('restart', function(){
+      console.log('nodemon restart');
+      setTimeout(function(){
+         browserSync.reload({ stream: false });
+      }, 1000);
+  }).on('error', function(err){
+      throw err;
   });
 });
-
 
 gulp.task('browser-sync', ['nodemon'], function(){
+  process.chdir('src');
   browserSync.init( null, {
     proxy: "http://localhost:3000",
-    //files: ["src/public/javascripts/controller.js"],
-    files: sources.js,
+    files: [
+      "public/javascripts/controller.js",
+      "app.js"
+      ],
+    //files: sources.js,
     browser: "google-chrome",
-    port: 7000
+    port: 7000 // open browser-sync at port:7000
   });
 });
+
+// create a default task and just log a message
+//gulp.task('default', ['scripts', 'styles', 'jshint', 'watch'], function(){
+gulp.task('default', ['scripts', 'styles', 'jshint', 'browser-sync'], function(){
+  return gutil.log('Gulp is running!');
+});
+
+
+
+
+
 
 // create a default task and just log a message
 //gulp.task('default', ['scripts', 'styles', 'jshint', 'watch'], function(){
