@@ -2,8 +2,11 @@
 <html ng-app="listApp">
 <head>
   <title>Home Page</title>
-  <!-- bower:css -->
-  <!-- endbower -->
+  <!--inject:css-->
+  <link rel="stylesheet" href="/src/public/stylesheets/bootstrap.css">
+  <link rel="stylesheet" href="/src/public/stylesheets/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="/src/public/stylesheets/style.css">
+  <!--endinject-->
 </head>
 <body ng-controller="listCtrl">
   <h1>Blog!</h1>
@@ -90,21 +93,48 @@
     <pre>postcode={{postcode}}</pre>
     <pre>address={{addres}}</pre>
   </form>
-  <!--
-  {{#each entries}}
-    <p>
-    <a href="/article/{{id}}">{{title}}</a><br/>
-    Published: {{published}}
-    </p>
-  {{/each}}
-  -->
+
+  <div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title">I'm a modal!</h3>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li ng-repeat="item in items">
+            <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+          </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+      </div>
+    </script>
+    <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
+    <button type="button" class="btn btn-default" ng-click="open('lg')">Large modal</button>
+    <button type="button" class="btn btn-default" ng-click="open('sm')">Small modal</button>
+    <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+  </div>
+
+
   <p>Nothing here {{'yet' + '!'}}</p>
   <!--script type="text/javascript" src="javascripts/angular.js"></script-->
   <!-- bower:js -->
-  <script src="/bower_components/jquery/dist/jquery.js"></script>
-  <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="/bower_components/angular/angular.js"></script>
+  <script src="../../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../../bower_components/angular/angular.js"></script>
+  <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- endbower -->
+  <!-- inject:js -->
+  <script src="/src/public/javascripts/angular.js"></script>
+  <script src="/src/public/javascripts/bootstrap.js"></script>
+  <script src="/src/public/javascripts/controller.js"></script>
+  <script src="/src/public/javascripts/ui-bootstrap-tpls.js"></script>
+  <script src="/src/public/javascripts/ui-bootstrap.js"></script>
+  <!-- endinject -->
   <script type="text/javascript" src="javascripts/controller.js"></script>
 </body>
 </html>
