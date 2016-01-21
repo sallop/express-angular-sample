@@ -2,6 +2,7 @@
 
 var gulp = require('gulp'),
   gutil = require('gulp-util'),
+  inject = require('gulp-inject'),
   jshint = require('gulp-jshint'),
   nodemon = require('gulp-nodemon'),
   browserSync = require('browser-sync').create();
@@ -18,19 +19,38 @@ var sources = {
   ]
 };
 
+//[23:30:10] 'inject' errored after 72 ms
+//[23:30:10] Error: EEXIST: file already exists, mkdir '/home/sallop/var/www/list_of_church/src/views/form.html'
+gulp.task('inject', function(){
+  var target = gulp.src('./src/views/form.html');
+  var sources = gulp.src([
+    './src/public/javascripts/*.js',
+    './src/public/stylesheets/*.css'
+  ], {
+    read : false
+  });
+
+  return target.pipe(inject(sources))
+               .pipe(gulp.dest('./src'));
+});
+
 gulp.task('scripts', function(){
   gulp.src([
     "node_modules/angular/angular.js",
-    "node_modules/bootstrap/dist/js/bootstrap.js"
+    "node_modules/angular-route/angular-route.js",
+    "node_modules/bootstrap/dist/js/bootstrap.js",
+    "node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js",
+    "node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"
   ])
-  .pipe(gulp.dest("src/javascripts"));
+  .pipe(gulp.dest("src/public/javascripts"));
 });
 
 gulp.task('styles', function(){
   gulp.src([
-    "node_modules/bootstrap/dist/css/bootstrap.css"
+    "node_modules/bootstrap/dist/css/bootstrap.css",
+    "node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"
   ])
-  .pipe(gulp.dest("src/stylesheets"));
+  .pipe(gulp.dest("src/public/stylesheets"));
 });
 
 gulp.task('jshint', function(){

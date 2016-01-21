@@ -1,6 +1,39 @@
-var listApp = angular.module('listApp', []);
+var listApp = angular.module('listApp', ['ngRoute']);
 
-listApp.controller('listCtrl', function($scope, $http){
+// need <base> tag for html5 mode
+angular.element(document.getElementsByTagName('head'))
+  .append(angular.element('<base href="' + window.location.pathname + '"/>'));
+
+listApp.config(['$routeProvider', '$locationProvider',
+    function($routeProvider, $locationProvider){
+      $routeProvider.
+        when('/list', {
+          templateUrl: 'partials/list.html',
+          controller: 'listCtrl'
+        }).
+        when('/read', {
+          templateUrl: 'partials/read.html',
+          controller: 'readCtrl'
+        }).
+        when('/add', {
+          templateUrl: 'partials/add.html',
+          controller: 'addCtrl'
+        }).
+        when('/delete', {
+          templateUrl: 'partials/delete.html',
+          controller: 'deleteCtrl'
+        }).
+        otherwise({
+          templateUrl: 'partials/other.html',
+          controller: 'otherCtrl'
+        });
+
+        $locationProvider.html5Mode(true);
+    }
+]);
+
+listApp.controller('listCtrl', ['$scope', '$http', '$routeParams', function($scope, $http){
+  $scope.johndoe = "John Smith";
 	$scope.click = function(n){
 		$scope.count = n;
 		console.log("pushed");
@@ -14,7 +47,7 @@ listApp.controller('listCtrl', function($scope, $http){
 			];
 		});
 	};
-}).controller('createCtrl', ['$scope', function($scope, $http){
+}]).controller('createCtrl', ['$scope', function($scope, $http){
 	$scope.userType = 'guest';
 }]).controller('submitCtrl', function($scope, $http){
 	$scope.list = [];
@@ -73,4 +106,15 @@ listApp.controller('listCtrl', function($scope, $http){
 			console.log("error occured");
 		});
 	};
+}).controller('addCtrl', function($scope, $http){
+  $scope.data = "Add Controller";
+})
+.controller('deleteCtrl', function($scope, $http){
+  $scope.data = [
+    "foo", "bar", "baz"
+  ];
+})
+.controller('otherCtrl', function($scope, $http){
+  $scope.data = [ "foo", "bar", "baz" ];
+  $scope.name = "Others";
 });

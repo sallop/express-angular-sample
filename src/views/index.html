@@ -2,20 +2,23 @@
 <html ng-app="listApp">
 <head>
   <title>Home Page</title>
-  <!-- bower:css -->
-  <!-- endbower -->
-</head>
+  <!--base href="localhost" /-->
+ </head>
 <body ng-controller="listCtrl">
-  <h1>Blog!</h1>
-  <header>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About Me</a></li>
-      <li><a href="/article">Some Article</a></li>
-    </ul>
-  </header>
+  <h1>Christian list</h1>
 
+  <!-- non html5 mode
+  <a href="#/list">list</a>|
+  <a href="#/add">add</a>|
+  <a href="#/delete">delete</a>
+  -->
+  <a href="/list">list</a>|
+  <a href="/add">add</a>|
+  <a href="/delete">delete</a>
 
+  <div ng-view></div>
+
+  <br/>
 
 	<button ng-click="click(n)" ng-repeat="n in [1,2,3,4,5,6,7,8,9,10,11] track by $index">
 		{{n}}班
@@ -99,21 +102,23 @@
     <pre>postcode={{postcode}}</pre>
     <pre>address={{addres}}</pre>
   </form>
-  <!--
-  {{#each entries}}
-    <p>
-    <a href="/article/{{id}}">{{title}}</a><br/>
-    Published: {{published}}
-    </p>
-  {{/each}}
-  -->
+
+ 
   <p>Nothing here {{'yet' + '!'}}</p>
+ <!-- bower:css -->
+  <!-- endbower -->
   <!--script type="text/javascript" src="javascripts/angular.js"></script-->
   <!-- bower:js -->
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
   <!-- endbower -->
+  <script src="javascripts/angular-route.js"></script>
+  <!--script type="text/javascript">
+    angular.element(document.getElementByTagName('head'))
+      .append(angular.element('<base href="' + window.location.pathname + '"/>'));
+  </script-->
   <script type="text/javascript" src="javascripts/controller.js"></script>
+
 </body>
 </html>
