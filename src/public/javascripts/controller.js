@@ -4,9 +4,14 @@ var listApp = angular.module('listApp', ['ngRoute']);
 angular.element(document.getElementsByTagName('head'))
   .append(angular.element('<base href="' + window.location.pathname + '"/>'));
 
-listApp.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider){
+listApp.config(['$routeProvider', '$locationProvider', 
+    function($routeProvider, $locationProvider, $httpProvider){
+
       $routeProvider.
+       when('/add', {
+        templateUrl: 'partials/add.html',
+        controller: 'addCtrl'
+        }).
         when('/list', {
           templateUrl: 'partials/list.html',
           controller: 'listCtrl'
@@ -15,9 +20,9 @@ listApp.config(['$routeProvider', '$locationProvider',
           templateUrl: 'partials/read.html',
           controller: 'readCtrl'
         }).
-        when('/add', {
-          templateUrl: 'partials/add.html',
-          controller: 'addCtrl'
+        when('/update', {
+          templateUrl: 'partials/update.html',
+          controller: 'updateCtrl'
         }).
         when('/delete', {
           templateUrl: 'partials/delete.html',
@@ -32,11 +37,98 @@ listApp.config(['$routeProvider', '$locationProvider',
     }
 ]);
 
-listApp.controller('listCtrl', ['$scope', '$http', '$routeParams', function($scope, $http){
-  $scope.johndoe = "John Smith";
+
+//listApp.service('submitService', function(){
+//  var submitData = {};
+//  var setData = function(newData){
+//    submitData = newData;
+//  };
+//  var getData = function(){
+//    return submitData;
+//  };
+//  return {
+//    setData: setData,
+//    getData: getData
+//  };
+//});
+
+//listApp.value('clientId', 'foobar');
+//listApp.value('submitData', 'foobar');
+listApp.service('submitEntry', function(){
+  var entry = { id:'9999'};
+
+  return {
+    getProperty: function(){
+      return entry;
+    },
+    setProperty: function(value){
+      entry = value;
+    }
+  };
+});
+
+listApp.controller('listCtrl', ['$scope', '$http', '$routeParams', 'submitEntry',
+    function($scope, $http, $routeParams, submitEntry){
+  $scope.sortType = 'id';
+  $scope.sortReverse = false;
+  $scope.searchFish = '';
+  console.log("value recipe" + submitEntry);
+  console.log(submitEntry);
+
+	$scope.id = '404';
+	$scope.team = '4';
+	$scope.fullname = 'John Smith';
+	$scope.christian_name = 'St.Expedite';
+	$scope.birthday = '1987-07-07';
+	$scope.telephone = '00000000';
+	$scope.postcode = '00000000';
+	$scope.address = 'Blackheath Ave, London SE10 8XJ, United Kingdom';
+
+	$scope.submit = function(){
+		var send_command = [
+			$scope.id,
+			$scope.team,
+			$scope.fullname,
+			$scope.christian_name,
+			$scope.birthday,
+			$scope.telephone, 
+			$scope.postcode,
+			$scope.address
+		].join('/');
+
+		console.log("pushed: " + send_command);
+		$http.get('/insert/' + send_command).success(function(data){
+			$scope.list= data;
+			console.log(data);
+		})
+		.error(function(){
+			$scope.list = [
+				{'id':0, 'team':0, 'fullname':'error occured'}
+			];
+		});
+	};
+
+  $scope.submitData = function(data){
+    console.log(submitEntry);
+    //submitService.setData(data);
+    $scope.id             = data.id            ; 
+    $scope.team           = data.team          ; 
+    $scope.fullname       = data.fullname      ; 
+    $scope.christian_name = data.christian_name; 
+    $scope.birthday       = data.birthday      ; 
+    $scope.telephone      = data.telephone     ; 
+    $scope.postcode       = data.postcode      ; 
+    $scope.address        = data.address       ; 
+
+
+    console.log(submitEntry.setProperty(data));
+    console.log(submitEntry.getProperty());
+  };
+
 	$scope.click = function(n){
 		$scope.count = n;
 		console.log("pushed");
+
 		$http.get('/list/' + $scope.count ).success(function(data){
 			$scope.entries = data;
 			console.log(data);
@@ -47,9 +139,31 @@ listApp.controller('listCtrl', ['$scope', '$http', '$routeParams', function($sco
 			];
 		});
 	};
-}]).controller('createCtrl', ['$scope', function($scope, $http){
-	$scope.userType = 'guest';
-}]).controller('submitCtrl', function($scope, $http){
+}])
+.controller('updateCtrl', ['$scope', function($scope, $http){
+
+  $scope.sortType = 'id';
+  $scope.sortReverse = false;
+  $scope.searchFish = '';
+
+	$scope.click = function(n){
+		$scope.count = n;
+		console.log("pushed");
+
+		$http.get('/list/' + $scope.count ).success(function(data){
+			$scope.entries = data;
+			console.log(data);
+		})
+		.error(function(){
+			$scope.entries = [
+				{'id':0, 'team':0, 'fullname':'error occured'}
+			];
+		});
+	};
+
+
+
+}]).controller('submitCtrl', function($scope, $http, submitEntry){
 	$scope.list = [];
 	$scope.text = 'hello';
 

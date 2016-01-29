@@ -1,11 +1,84 @@
 <div>
-  name:{{johndoe}}
-  <table>
-    <tr ng-repeat="entry in entries">
-      <td>{{entry.id}}</td>
-      <td>{{entry.team}}</td>
-      <td>{{entry.fullname}}</td>
-      <td>{{listCtrl.params}}</td>
-    </tr>
+  clientId:{{clientId}}<br/>
+  clientId:{{listCtrl.clientId}}<br/>
+  <button ng-repeat="n in [1,2,3,4,5,6,7,8,9]" ng-click="click(n)">{{n}}班</button>
+  <div class="alert alert-info">
+    <p>Sort Type:{{sortType}}</p>
+    <p>Sort Reverse:{{sortReverse}}</p>
+    <p>Search Query:{{searchFish}}</p>
+  </div>
+  <table border="1" cellpadding="7" cellspacing="7">
+    <thead>
+      <td ng-click="sortType = 'id'; sortReverse = !sortReverse;">ID</td>
+      <td ng-click="sortType = 'team'; sortReverse = !sortReverse;">班</td>
+      <td ng-click="sortType = 'fullname'; sortReverse = !sortReverse;">氏名</td>
+      <td ng-click="sortType = 'christian_name'; sortReverse = !sortReverse;">洗礼名</td>
+      <td ng-click="sortType = 'birthday'; sortReverse = !sortReverse;">生年月日</td>
+    </thead>
+    <tbody>
+      <!--tr ng-repeat="entry in entries track by $index | orderBy:'-id':reverse"-->
+      <!--tr ng-repeat="entry in entries | orderBy:'-fullname':reverse track by $index"-->
+      <tr
+        ng-repeat="entry in entries | orderBy:sortType:sortReverse"
+        ng-click="submitData(entry)"
+        >
+        <td>{{entry.id}}</td>
+        <td>{{entry.team}}</td>
+        <td>{{entry.fullname}}</td>
+        <td>{{entry.christian_name}}</td>
+        <td>{{entry.birthday}}</td>
+        <!--td>{{listCtrl.params}}</td-->
+      </tr>
+    </tbody>
   </table>
+  <form ng-submit="submit()">
+    <table>
+      <tr>
+        <td>id</td>
+        <td><input type="text" ng-model="id" name="id"/></td>
+      </tr>
+      <tr>
+        <td>team</td>
+        <td><input type="text" ng-model="team" name="team"/></td>
+      </tr>
+      <tr>
+        <td>fullname</td>
+        <td><input type="text" ng-model="fullname" name="fullname"/><td>
+      </tr>
+      <tr>
+        <td>christian_name</td>
+        <td><input type="text" ng-model="christian_name" name="christian_name"/></td>
+      </tr>
+      <tr>
+        <td>birthday</td>
+        <td><input type="text" ng-model="birthday" name="birthday"/></td>
+      </tr>
+      <tr>
+        <td>telephone</td>
+        <td><input type="text" ng-model="telephone" name="telephone"/></td>
+      </tr>
+      <tr>
+        <td>postcode</td>
+        <td><input type="text" ng-model="postcode" name="postcode"/></td>
+      </tr>
+      <tr>
+        <td>address</td>
+        <td><input type="text" ng-model="address" name="address"/></td>
+      </tr>
+      <tr>
+        <td><input type="submit" id="submit" value="submit"/></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <pre>list={{list}}</pre>
+    <pre>id={{id}}</pre>
+    <pre>team={{team}}</pre>
+    <pre>fullname={{fullname}}</pre>
+    <pre>christian_name={{christian_name}}</pre>
+    <pre>birthday={{birthday}}</pre>
+    <pre>telephone={{telephone}}</pre>
+    <pre>postcode={{postcode}}</pre>
+    <pre>address={{addres}}</pre>
+  </form>
 </div>

@@ -4,7 +4,8 @@
   <title>Home Page</title>
   <!--base href="localhost" /-->
  </head>
-<body ng-controller="listCtrl">
+<!--body ng-controller="listCtrl"-->
+<body>
   <h1>Christian list</h1>
 
   <!-- non html5 mode
@@ -12,8 +13,9 @@
   <a href="#/add">add</a>|
   <a href="#/delete">delete</a>
   -->
-  <a href="/list">list</a>|
   <a href="/add">add</a>|
+  <a href="/list">list</a>|
+  <a href="/update">update</a>|
   <a href="/delete">delete</a>
 
   <div ng-view></div>
@@ -41,7 +43,7 @@
 		</tr>
 	</table>
 
-  <form name="myForm" class="my-form" ng-controller="createCtrl">
+  <form name="myForm" class="my-form" ng-controller="updateCtrl">
     userType: <input name="input" ng-model="userType" required>
     <span class="error" ng-show="myForm.input.$error.required">
       Required!
